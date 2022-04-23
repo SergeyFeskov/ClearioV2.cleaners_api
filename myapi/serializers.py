@@ -2,7 +2,12 @@
 from rest_framework import serializers
 from .models import CleanersInfo
 
-class CleanersInfoSerializer(serializers.HyperlinkedModelSerializer):
+class CleanersInfoSerializer(serializers.ModelSerializer):
+    # TODO: override is_valid method
+
+    def set_id(self):
+        self.validated_data['id'] = CleanersInfo.objects.latest('id').id + 1;
+
     class Meta:
         model = CleanersInfo
-        fields = ('id', 'name', 'surname', 'city', 'phonenumber', 'isworking', 'rating')
+        fields = '__all__'
