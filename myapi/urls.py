@@ -1,11 +1,24 @@
 # myapi/urls.py
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from .views import CleanersInfoViewSet, ByOneCleanerViewSet
+
+cleaners_list = CleanersInfoViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+cleaner_detail = CleanersInfoViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+router = DefaultRouter()
+router.register(r'cleaners', CleanersInfoViewSet, basename="cleaners")
+router.register(r'byone', ByOneCleanerViewSet)
 
 urlpatterns = [
-    path('cleaners/', views.CleanersList.as_view()),
-    path('cleaners/<int:pk>/', views.CleanerDetail.as_view()),
+    path('', include(router.urls)),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
