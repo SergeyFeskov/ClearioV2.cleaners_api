@@ -4,16 +4,16 @@ from rest_framework.routers import DefaultRouter
 
 from .views import CleanersInfoViewSet, ByOneCleanerViewSet
 
-cleaners_list = CleanersInfoViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-cleaner_detail = CleanersInfoViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
+# cleaners_list = CleanersInfoViewSet.as_view({
+#     'get': 'list',
+#     'post': 'create'
+# })
+# cleaner_detail = CleanersInfoViewSet.as_view({
+#     'get': 'retrieve',
+#     'put': 'update',
+#     'patch': 'partial_update',
+#     'delete': 'destroy'
+# })
 
 router = DefaultRouter()
 router.register(r'cleaners', CleanersInfoViewSet, basename="cleaners")
